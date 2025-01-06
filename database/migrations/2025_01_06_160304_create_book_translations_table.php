@@ -13,6 +13,13 @@ return new class extends Migration
     {
         Schema::create('book_translations', function (Blueprint $table) {
             $table->id();
+            $table->integer('book_id')->unsigned();
+            $table->string('locale')->index();
+            $table->string('title');
+            $table->text('content');
+
+            $table->unique(['book_id', 'locale']);
+            $table->foreign('book_id')->references('id')->on('books')->onDelete('cascade');
             $table->timestamps();
         });
     }
