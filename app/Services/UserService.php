@@ -35,13 +35,8 @@ class UserService implements UserServiceInterface
         return $user->createToken('login')->plainTextToken;
 
     }
-    public function findUser($data){
 
-    }
     public function verifyEmail($token){
-
-    }
-    public function logout($data){
 
     }
 }
