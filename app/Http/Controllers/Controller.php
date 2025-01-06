@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Pagination\LengthAwarePaginator;
+
 abstract class Controller
 {
     protected function success($data = [], string $message = 'Operation successful', int $status = 200)
@@ -14,7 +16,7 @@ abstract class Controller
     }
     protected function responsePagination($paginator, $data = [], string $message = 'Operation successful', int $status = 200)
     {
-        if ($paginator instanceof \Illuminate\Pagination\LengthAwarePaginator) {
+        if ($paginator instanceof LengthAwarePaginator) {
             $pagination = [
                 'current_page' => $paginator->currentPage(),
                 'total_pages' => $paginator->lastPage(),
