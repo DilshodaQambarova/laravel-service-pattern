@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('attachments', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('attachmentable_id');
-            $table->string('attachmentable_type');
+            $table->
+            $table->unsignedBigInteger('attachment_id');
+            $table->string('attachment_type');
             $table->string('path');
             $table->timestamps();
         });

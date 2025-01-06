@@ -15,6 +15,6 @@ class Book extends Model implements TranslatableContact
         return $this->belongsTo(User::class);
     }
     public function images(){
-        return $this->morphMany(Attachment::class, 'attachmentable');
+        return $this->morphMany(Attachment::class, 'attachment');
     }
 }
