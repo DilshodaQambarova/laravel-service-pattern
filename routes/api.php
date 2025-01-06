@@ -8,6 +8,7 @@ use App\Http\Controllers\BookController;
 Route::middleware('setLocale')->group(function(){
     Route::middleware('auth:sanctum')->group(function(){
         Route::get('/user', [AuthController::class, 'findUser']);
+        Route::get('/logout', [AuthController::class, 'logout']);
         Route::apiResource('/books', BookController::class);
     });
     Route::post('/register', [AuthController::class, 'register']);
