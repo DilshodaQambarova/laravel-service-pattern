@@ -2,15 +2,15 @@
 
 namespace App\Repositories;
 
+use App\Models\User;
 use App\Interfaces\Repositories\UserRepositoryInterface;
 
 class UserRepository implements UserRepositoryInterface
 {
-    /**
-     * Create a new class instance.
-     */
-    public function __construct()
-    {
-        //
+    public function createUser($data){
+        return User::create($data);
+    }
+    public function findUser($data){
+
     }
 }
