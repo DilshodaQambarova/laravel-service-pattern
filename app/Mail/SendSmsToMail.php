@@ -2,8 +2,8 @@
 
 namespace App\Mail;
 
+use App\Models\User;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
@@ -16,7 +16,7 @@ class SendSmsToMail extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct(protected User $user)
     {
         //
     }
@@ -27,7 +27,7 @@ class SendSmsToMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Send Sms To Mail',
+            subject: 'Email verification',
         );
     }
 
@@ -36,8 +36,13 @@ class SendSmsToMail extends Mailable
      */
     public function content(): Content
     {
+        $link = config('app.url') . '/email-verify?token=' . $this->user->verification_token;
         return new Content(
-            view: 'view.name',
+            view: 'email.send',
+            with: [
+                'link' => $link,
+                'name' => $this->user->name
+            ]
         );
     }
 

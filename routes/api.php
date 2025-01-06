@@ -13,4 +13,5 @@ Route::middleware('setLocale')->group(function(){
     });
     Route::post('/register', [AuthController::class, 'register']);
     Route::post('/login', [AuthController::class, 'login']);
+    Route::get('/email-verify', [AuthController::class, 'verifyEmail']);
 });

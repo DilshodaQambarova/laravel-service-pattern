@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\DTO\UserDTO;
-use App\Traits\ResponseTrait;
+use App\Jobs\SendEmailJob;
 use Illuminate\Http\Request;
+use App\Traits\ResponseTrait;
 use App\Http\Requests\LoginRequest;
 use App\Http\Resources\UserResource;
 use App\Http\Requests\RegisterRequest;
@@ -20,6 +21,7 @@ class AuthController extends Controller
 
         $userDTO = new UserDTO($request->name, $request->email, $request->password);
         $user = $this->userService->registerUser($userDTO);
+        SendEmailJob::dispatch($user);
         return $this->success(new UserResource($user), 'User created successfully', 201);
     }
     public function login(LoginRequest $request){

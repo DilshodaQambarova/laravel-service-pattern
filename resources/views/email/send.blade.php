@@ -1,3 +1,4 @@
 <div>
-    <!-- Walk as if you are kissing the Earth with your feet. - Thich Nhat Hanh -->
+    <h1>Welcome, {{$name}} !</h1>
+    <a href="{{$link}}"><h4>Email Verification</h4></a>
 </div>
