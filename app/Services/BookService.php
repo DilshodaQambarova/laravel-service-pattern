@@ -1,8 +1,11 @@
 <?php
 
-namespace App;
+namespace App\Services;
 
-class BookService
+use App\Interfaces\Services\BookServiceInterface;
+
+
+class BookService implements BookServiceInterface
 {
     /**
      * Create a new class instance.

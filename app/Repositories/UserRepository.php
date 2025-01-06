@@ -2,7 +2,9 @@
 
 namespace App\Repositories;
 
-class UserRepository
+use App\Interfaces\Repositories\UserRepositoryInterface;
+
+class UserRepository implements UserRepositoryInterface
 {
     /**
      * Create a new class instance.
