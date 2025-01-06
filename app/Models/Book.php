@@ -11,4 +11,7 @@ class Book extends Model implements TranslatableContact
     use Translatable;
     public $translatedAttributes = ['title', 'content'];
     protected $fillable = ['user_id'];
+    public function author(){
+        return $this->belongsTo(User::class);
+    }
 }
