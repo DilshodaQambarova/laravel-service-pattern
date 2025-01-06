@@ -32,6 +32,9 @@ class UserService implements UserServiceInterface
         if(!$user || !Hash::check($data['password'], $user->password)){
             return $this->error('User not found or password is incorrect', 404);
         }
+        if($user->email_verified_at == null){
+            return $this->error('Email not verified', 403);
+        }
         return $user->createToken('login')->plainTextToken;
 
     }
