@@ -11,7 +11,7 @@ class UpdateBookRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,9 @@ class UpdateBookRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title' => 'nullable|max:25',
+            'content' => 'nullable|max:225',
+            'images' => 'nullable|mimes:png,jpg|max:2048'
         ];
     }
 }
