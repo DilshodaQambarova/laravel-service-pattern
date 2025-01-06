@@ -8,7 +8,16 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class Attachment extends Model
 {
-    protected $fillable = ['path'];
+    protected $fillable = [
+        'path',
+        'extra_identifier',
+        'title',
+        'size',
+        'type',
+        'attachment_id',
+        'attachment_type'
+
+    ];
     public function attachment(){
         return $this->morphTo();
     }

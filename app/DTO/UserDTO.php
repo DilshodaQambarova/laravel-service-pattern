@@ -4,7 +4,7 @@ namespace App\DTO;
 
 class UserDTO
 {
-    public $name;
+    public string $name;
     public $email;
     public $password;
     public function __construct($name, $email, $password)

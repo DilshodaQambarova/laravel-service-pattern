@@ -11,7 +11,7 @@ class StoreBookRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,16 @@ class StoreBookRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+
+            'translations.en.title' => 'sometimes|string',
+            'translations.uz.title' => 'sometimes|string',
+            'translations.ru.title' => 'sometimes|string',
+
+            'translations.en.content' => ['required_with:translations.en.title', 'string'],
+            'translations.uz.content' => ['required_with:translations.uz.title', 'string'],
+            'translations.ru.content' => ['required_with:translations.ru.title', 'string'],
+
+            'images' => 'required|max:2048|mimes:jpg,png',
         ];
     }
 }
