@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\SetLocaleMiddleware;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Application;
@@ -15,7 +16,9 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+        $middleware->alias([
+            'setLocale' => SetLocaleMiddleware::class
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         $exceptions->render(function (NotFoundHttpException $e, Request $request) {
