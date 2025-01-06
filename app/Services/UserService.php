@@ -37,6 +37,7 @@ class UserService implements UserServiceInterface
     }
 
     public function verifyEmail($token){
-
+        $this->userRepository->findUserByToken($token);
+        return 'Email verified successfully!';
     }
 }
