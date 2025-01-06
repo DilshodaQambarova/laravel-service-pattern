@@ -27,12 +27,13 @@ class AuthController extends Controller
         return $this->success($token, 'User logged successfully');
     }
     public function findUser(Request $request){
-
+        return $this->success(new UserResource($request->user()));
     }
     public function verifyEmail(Request $request){
 
     }
     public function logout(Request $request){
-
+        $request->user()->currentAccessToken()->delete();
+        return $this->success([], 'User logged out successfully', 204);
     }
 }
