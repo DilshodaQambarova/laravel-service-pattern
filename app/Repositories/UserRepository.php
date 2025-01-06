@@ -17,7 +17,7 @@ class UserRepository implements UserRepositoryInterface
         $user->save();
         return $user;
     }
-    public function findUser($data){
-
+    public function getUserByEmail($email){
+        return User::where('email', $email)->firstOrFail();
     }
 }

@@ -4,12 +4,15 @@ namespace App\Services;
 
 use App\DTO\UserDTO;
 use Illuminate\Support\Str;
+use App\Traits\ResponseTrait;
 use Illuminate\Support\Facades\Hash;
 use App\Interfaces\Services\UserServiceInterface;
 use App\Interfaces\Repositories\UserRepositoryInterface;
 
 class UserService implements UserServiceInterface
 {
+
+    use ResponseTrait;
 
     public function __construct(protected UserRepositoryInterface $userRepository)
     {
@@ -24,8 +27,13 @@ class UserService implements UserServiceInterface
         ];
         return $this->userRepository->createUser($data);
     }
-    public function loginUser($email){
-        
+    public function loginUser($data){
+        $user = $this->userRepository->getUserByEmail($data['email']);
+        if(!$user || !Hash::check($data['password'], $user->password)){
+            return $this->error('User not found or password is incorrect', 404);
+        }
+        return $user->createToken('login')->plainTextToken;
+
     }
     public function findUser($data){
 
