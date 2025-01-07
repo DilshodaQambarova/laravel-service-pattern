@@ -40,10 +40,12 @@ class BookController extends Controller
         $bookDTO = new BookDTO($request->file('images'), Auth::id(), $request->translations);
         $book = $this->bookService->updateBook($bookDTO, $id);
         return $this->success(new BookResource($book), 'Book updated successfully!');
+
     }
 
     public function destroy(string $id)
     {
-        //
+        $this->bookService->deleteBook($id);
+        return $this->success([], 'Book deleted successfully', 204);
     }
 }
