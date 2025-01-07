@@ -48,4 +48,5 @@ class BookController extends Controller
         $this->bookService->deleteBook($id);
         return $this->success([], 'Book deleted successfully', 204);
     }
+    
 }
