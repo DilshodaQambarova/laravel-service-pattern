@@ -27,6 +27,12 @@
 ### 5. **Translations**
 - Book titles and descriptions support multiple languages.
 
+### 6. **Scheduling**
+- Added Schedule command to delete users who haven't confirmed their email within 3 days. To use Schedule, type this command in the terminal:
+```
+php artisan schedule:run
+```
+
 ---
 
 ## Prerequisites
