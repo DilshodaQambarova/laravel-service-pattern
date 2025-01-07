@@ -12,8 +12,6 @@ use App\Interfaces\Repositories\UserRepositoryInterface;
 class UserService extends BaseService implements UserServiceInterface
 {
 
-    use ResponseTrait;
-
     public function __construct(protected UserRepositoryInterface $userRepository)
     {
         //
