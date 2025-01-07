@@ -12,7 +12,7 @@ class Book extends Model implements TranslatableContact
     public $translatedAttributes = ['title', 'content'];
     protected $fillable = ['user_id'];
     public function author(){
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
     public function images(){
         return $this->morphMany(Attachment::class, 'attachment');
