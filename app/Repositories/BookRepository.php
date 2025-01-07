@@ -18,7 +18,7 @@ class BookRepository implements BookRepositoryInterface
     {
         return Auth::user()
             ->books()
-            ->with(['translations', 'images'])
+            ->with(['translations', 'images', 'author'])
             ->paginate($num);
 
     }
@@ -29,28 +29,31 @@ class BookRepository implements BookRepositoryInterface
         $book->fill($data['translations']);
         $book->save();
         event(new AttachmentEvent($data['images'], $book->images()));
-        return $book->load('images');
+        return $book->load(['images', 'author']);
     }
     public function getBookById($id)
     {
-        $book = Auth::user()->books()->with('author')->findOrFail($id);
-        return $book;
+        $book = Auth::user()->books()->with('translations')->findOrFail($id);
+        return $book->load(['author', 'images']);
     }
     public function updateBook($data, $id)
     {
-        $book = Auth::user()->books()->findOrFail($id);
+        $book = Book::findOrFail($id);
         $book->fill($data['translations']);
         $book->save();
         if ($data['images']) {
-            if ($book->images->apth) {
-                $this->attachmentService->destroy($book->images->path);
+            if ($book->images) {
+                $this->attachmentService->destroy($book->images);
             }
             event(new AttachmentEvent($data['images'], $book->images()));
         }
-        return $book;
+        return $book->load(['images', 'author']);
     }
     public function deleteBook($id)
     {
-
+        $book = Auth::user()->books()->findOrFail($id);
+        $this->attachmentService->destroy($book->images);
+        $book->delete();
+        return $book;
     }
 }
