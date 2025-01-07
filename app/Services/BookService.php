@@ -30,7 +30,12 @@ class BookService extends BaseService implements BookServiceInterface
         return $this->bookRepository->getBookById($id);
     }
     public function updateBook($bookDTO, $id){
-
+        $data = [
+            'user_id' => $bookDTO->user_id,
+            'images' => $bookDTO->images,
+            'translations' => $bookDTO->translations
+        ];
+        return $this->bookRepository->updateBook($data, $id);
     }
     public function deleteBook($id){
 
