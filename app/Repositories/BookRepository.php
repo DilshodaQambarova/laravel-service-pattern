@@ -29,7 +29,16 @@ class BookRepository implements BookRepositoryInterface
         return $book;
     }
     public function updateBook($data, $id){
-
+        $book = Auth::user()->books()->findOrFail($id);
+        $book->fill($data['translations']);
+        $book->save();
+        if($data['images']){
+            if($book->images->apth){
+                $this->attachmentService->destroy($book->images->path);
+            }
+            event(new AttachmentEvent($data['images']));
+        }
+        return $book;
     }
     public function deleteBook($id){
 
