@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use Illuminate\Support\Facades\Auth;
 use App\Interfaces\Services\BookServiceInterface;
 use App\Interfaces\Repositories\BookRepositoryInterface;
 
@@ -28,6 +29,9 @@ class BookService extends BaseService implements BookServiceInterface
         return $this->bookRepository->getBookById($id);
     }
     public function updateBook($bookDTO, $id){
+        if(Auth::id() !== $bookDTO->user_id){
+            return $this->error(__('errors.book.forbidden'), 403);
+        }
         $data = [
             'user_id' => $bookDTO->user_id,
             'images' => $bookDTO->images,

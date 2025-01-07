@@ -30,10 +30,10 @@ class UserService extends BaseService implements UserServiceInterface
     public function loginUser($data){
         $user = $this->userRepository->getUserByEmail($data['email']);
         if(!$user || !Hash::check($data['password'], $user->password)){
-            return $this->error('User not found or password is incorrect', 404);
+            return $this->error(__('errors.user.not_found'), 404);
         }
         if($user->email_verified_at == null){
-            return $this->error('Email not verified', 403);
+            return $this->error(__('errors.email.not_verified'), 403);
         }
         return $user->createToken('login')->plainTextToken;
 
@@ -41,6 +41,6 @@ class UserService extends BaseService implements UserServiceInterface
 
     public function verifyEmail($token){
         $this->userRepository->findUserByToken($token);
-        return 'Email verified successfully!';
+        return __('successes.email.verified');
     }
 }

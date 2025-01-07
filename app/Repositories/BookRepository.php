@@ -6,10 +6,12 @@ use App\Events\AttachmentEvent;
 use App\Interfaces\Repositories\BookRepositoryInterface;
 use App\Models\Book;
 use App\Services\AttachmentService;
+use App\Traits\ResponseTrait;
 use Illuminate\Support\Facades\Auth;
 
 class BookRepository implements BookRepositoryInterface
 {
+    use ResponseTrait;
     public function __construct(protected AttachmentService $attachmentService)
     {
 
@@ -52,6 +54,9 @@ class BookRepository implements BookRepositoryInterface
     public function deleteBook($id)
     {
         $book = Auth::user()->books()->findOrFail($id);
+        if(Auth::id() !== $book->user_id){
+            return $this->error(__('errors.book.forbidden'), 403);
+        }
         $this->attachmentService->destroy($book->images);
         $book->delete();
         return $book;

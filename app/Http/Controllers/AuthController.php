@@ -22,11 +22,11 @@ class AuthController extends Controller
         $userDTO = new UserDTO($request->name, $request->email, $request->password);
         $user = $this->userService->registerUser($userDTO);
         SendEmailJob::dispatch($user);
-        return $this->success(new UserResource($user), 'User created successfully', 201);
+        return $this->success(new UserResource($user), __('successes.user.created'), 201);
     }
     public function login(LoginRequest $request){
         $token = $this->userService->loginUser($request->all());
-        return $this->success($token, 'User logged successfully');
+        return $this->success($token, __('successes.user.logged'));
     }
     public function findUser(Request $request){
         return $this->success(new UserResource($request->user()));
@@ -37,6 +37,6 @@ class AuthController extends Controller
     }
     public function logout(Request $request){
         $request->user()->currentAccessToken()->delete();
-        return $this->success([], 'User logged out successfully', 204);
+        return $this->success([], __('successes.user.logged_out'), 204);
     }
 }

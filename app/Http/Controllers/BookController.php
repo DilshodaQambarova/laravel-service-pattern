@@ -26,7 +26,7 @@ class BookController extends Controller
     {
         $bookDTO = new BookDTO( $request->file('images'), Auth::id(), $request->translations);
         $book = $this->bookService->createBook($bookDTO);
-        return $this->success(new BookResource($book), 'Book created successfully', 201);
+        return $this->success(new BookResource($book), __('successes.book.created'), 201);
     }
 
     public function show(string $id)
@@ -39,14 +39,14 @@ class BookController extends Controller
     {
         $bookDTO = new BookDTO($request->file('images'), Auth::id(), $request->translations);
         $book = $this->bookService->updateBook($bookDTO, $id);
-        return $this->success(new BookResource($book), 'Book updated successfully!');
+        return $this->success(new BookResource($book), __('successes.book.updated'));
 
     }
 
     public function destroy(string $id)
     {
         $this->bookService->deleteBook($id);
-        return $this->success([], 'Book deleted successfully', 204);
+        return $this->success([], __('successes.book.deleted'), 204);
     }
-    
+
 }
