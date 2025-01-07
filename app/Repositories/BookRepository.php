@@ -56,4 +56,10 @@ class BookRepository implements BookRepositoryInterface
         $book->delete();
         return $book;
     }
+    public function search($q, $query, $filters){
+
+    }
+    public function filter($query, $filters){
+        
+    }
 }
