@@ -15,9 +15,8 @@ class BookResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'title' => $this->title,
-            'content' => $this->content,
-            'user' => new UserResource($this->whenLoaded('user')),
+            'translations' => BookTranslationResource::collection($this->whenLoaded('translations')),
+            'author' => new UserResource($this->whenLoaded('author')),
             'images' => AttachmentResource::collection($this->whenLoaded('images'))
         ];
     }

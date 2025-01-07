@@ -13,21 +13,20 @@ use App\Interfaces\Services\BookServiceInterface;
 
 class BookController extends Controller
 {
-    use ResponseTrait;
     public function __construct(protected BookServiceInterface $bookService){
 
     }
     public function index()
     {
         $books = $this->bookService->getAllBooks(10);
-        return $this->responsePagination($books, BookResource::collection($books->load('images')));
+        return $this->responsePagination($books, BookResource::collection($books));
     }
 
     public function store(StoreBookRequest $request)
     {
         $bookDTO = new BookDTO( $request->file('images'), Auth::id(), $request->translations);
         $book = $this->bookService->createBook($bookDTO);
-        return $this->success(new BookResource($book->load('images')), 'Book created successfully', 201);
+        return $this->success(new BookResource($book), 'Book created successfully', 201);
     }
 
     public function show(string $id)

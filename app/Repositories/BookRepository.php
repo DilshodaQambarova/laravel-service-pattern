@@ -3,44 +3,54 @@
 namespace App\Repositories;
 
 use App\Events\AttachmentEvent;
+use App\Interfaces\Repositories\BookRepositoryInterface;
 use App\Models\Book;
 use App\Services\AttachmentService;
 use Illuminate\Support\Facades\Auth;
-use App\Interfaces\Repositories\BookRepositoryInterface;
 
 class BookRepository implements BookRepositoryInterface
 {
-    public function __construct(protected AttachmentService $attachmentService){
+    public function __construct(protected AttachmentService $attachmentService)
+    {
 
     }
-    public function getAllBooks($num){
-        return Auth::user()->books()->with('user')->paginate($num);
+    public function getAllBooks($num)
+    {
+        return Auth::user()
+            ->books()
+            ->with(['translations', 'images'])
+            ->paginate($num);
+
     }
-    public function createBook($data){
+    public function createBook($data)
+    {
         $book = new Book();
         $book->user_id = $data['user_id'];
         $book->fill($data['translations']);
         $book->save();
-        event(new AttachmentEvent($data['images']));
-        return $book->with('user');
+        event(new AttachmentEvent($data['images'], $book->images()));
+        return $book->load('images');
     }
-    public function getBookById($id){
-        $book = Auth::user()->books()->with('user')->findOrFail($id);
+    public function getBookById($id)
+    {
+        $book = Auth::user()->books()->with('author')->findOrFail($id);
         return $book;
     }
-    public function updateBook($data, $id){
+    public function updateBook($data, $id)
+    {
         $book = Auth::user()->books()->findOrFail($id);
         $book->fill($data['translations']);
         $book->save();
-        if($data['images']){
-            if($book->images->apth){
+        if ($data['images']) {
+            if ($book->images->apth) {
                 $this->attachmentService->destroy($book->images->path);
             }
-            event(new AttachmentEvent($data['images']));
+            event(new AttachmentEvent($data['images'], $book->images()));
         }
         return $book;
     }
-    public function deleteBook($id){
+    public function deleteBook($id)
+    {
 
     }
 }

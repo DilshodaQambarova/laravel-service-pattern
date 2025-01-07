@@ -2,6 +2,8 @@
 
 namespace App\Traits;
 
+use Illuminate\Pagination\LengthAwarePaginator;
+
 trait ResponseTrait
 {
     protected function success($data = [], string $message = 'Operation successful', int $status = 200)
