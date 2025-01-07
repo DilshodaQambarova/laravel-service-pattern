@@ -31,7 +31,8 @@ class StoreBookRequest extends FormRequest
             'translations.uz.content' => ['required_with:translations.uz.title', 'string'],
             'translations.ru.content' => ['required_with:translations.ru.title', 'string'],
 
-            'images' => 'required|max:2048|mimes:jpg,png',
+            'images' => 'required|array',
+            'images.*' => 'file|mimes:jpg,jpeg,png|max:2048',
         ];
     }
 }
