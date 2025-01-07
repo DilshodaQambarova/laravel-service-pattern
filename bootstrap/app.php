@@ -21,12 +21,12 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        // $exceptions->render(function (NotFoundHttpException $e, Request $request) {
-        //     if (request()->is('api/*') && $e->getPrevious() instanceof ModelNotFoundException) {
-        //         $model = Str::afterLast($e->getPrevious()->getModel(), '\\');
-        //         return response()->json($model . ' not found', 404);
-        //     }
+        $exceptions->render(function (NotFoundHttpException $e, Request $request) {
+            if (request()->is('api/*') && $e->getPrevious() instanceof ModelNotFoundException) {
+                $model = Str::afterLast($e->getPrevious()->getModel(), '\\');
+                return response()->json($model . ' not found', 404);
+            }
 
-        //     return response()->json('Page not found', 404);
-        // });
+            return response()->json(__('errors.404'), 404);
+        });
     })->create();
