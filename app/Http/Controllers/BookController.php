@@ -27,12 +27,13 @@ class BookController extends Controller
     {
         $bookDTO = new BookDTO( $request->file('images'), Auth::id(), $request->translations);
         $book = $this->bookService->createBook($bookDTO);
-        // return $this->success(new BookResource($book->load('images')), 'Book created successfully', 201);
+        return $this->success(new BookResource($book->load('images')), 'Book created successfully', 201);
     }
 
     public function show(string $id)
     {
-        //
+        $book = $this->bookService->getBookById($id);
+        return $this->success(new BookResource($book->load('images')));
     }
 
     public function update(UpdateBookRequest $request, string $id)
