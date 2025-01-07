@@ -36,7 +36,7 @@ class SendSmsToMail extends Mailable
      */
     public function content(): Content
     {
-        $link = config('app.url') . '/api/email-verify?token=' . $this->user->verification_token;
+        $link = config('app.url') . '/email-verify?token=' . $this->user->verification_token;
         return new Content(
             view: 'email.send',
             with: [
