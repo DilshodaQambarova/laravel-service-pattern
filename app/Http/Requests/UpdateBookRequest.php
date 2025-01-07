@@ -22,9 +22,16 @@ class UpdateBookRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'nullable|max:25',
-            'content' => 'nullable|max:225',
-            'images' => 'nullable|mimes:png,jpg|max:2048'
+           'translations.en.title' => 'nullable|sometimes|string',
+            'translations.uz.title' => 'nullable|sometimes|string',
+            'translations.ru.title' => 'nullable|sometimes|string',
+
+            'translations.en.content' => ['nullable:translations.en.title', 'string'],
+            'translations.uz.content' => ['nullable:translations.uz.title', 'string'],
+            'translations.ru.content' => ['nullable:translations.ru.title', 'string'],
+
+            'images' => 'nullable|array',
+            'images.*' => 'file|mimes:jpg,jpeg,png|max:2048',
         ];
     }
 }
