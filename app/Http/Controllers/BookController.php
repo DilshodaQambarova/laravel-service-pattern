@@ -38,7 +38,9 @@ class BookController extends Controller
 
     public function update(UpdateBookRequest $request, string $id)
     {
-        //
+        $bookDTO = new BookDTO($request->file('images'), Auth::id(), $request->translations);
+        $book = $this->bookService->updateBook($bookDTO, $id);
+        return $this->success(new BookResource($book), 'Book updated successfully!');
     }
 
     public function destroy(string $id)
