@@ -25,7 +25,8 @@ class BookRepository implements BookRepositoryInterface
         return $book->with('user');
     }
     public function getBookById($id){
-
+        $book = Auth::user()->books()->with('user')->findOrFail($id);
+        return $book;
     }
     public function updateBook($data, $id){
 
