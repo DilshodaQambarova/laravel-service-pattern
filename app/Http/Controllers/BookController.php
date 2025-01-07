@@ -48,5 +48,6 @@ class BookController extends Controller
         $this->bookService->deleteBook($id);
         return $this->success([], __('successes.book.deleted'), 204);
     }
+    // TODo add search and filter for book
 
 }
