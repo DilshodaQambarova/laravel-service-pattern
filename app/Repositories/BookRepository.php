@@ -22,6 +22,7 @@ class BookRepository implements BookRepositoryInterface
         $book->fill($data['translations']);
         $book->save();
         event(new AttachmentEvent($data['images']));
+        return $book->with('user');
     }
     public function getBookById($id){
 

@@ -25,11 +25,7 @@ class BookController extends Controller
 
     public function store(StoreBookRequest $request)
     {
-            foreach($request['images'] as $image){
-                dd($image->getClientOriginalName());
-
-            }
-        $bookDTO = new BookDTO( $request['images'], Auth::id(), $request->translations);
+        $bookDTO = new BookDTO( $request->file('images'), Auth::id(), $request->translations);
         $book = $this->bookService->createBook($bookDTO);
         // return $this->success(new BookResource($book->load('images')), 'Book created successfully', 201);
     }

@@ -13,13 +13,12 @@ return new class extends Migration
     {
         Schema::create('attachments', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->unsignedInteger('size');
-            $table->string('type');
             $table->string('extra_identifier')->nullable();
-            $table->unsignedBigInteger('attachment_id');
-            $table->string('attachment_type');
+            $table->string('title')->nullable();
             $table->string('path');
+            $table->string('size');
+            $table->string('type')->nullable();
+            $table->nullableMorphs('attachment');
             $table->timestamps();
         });
     }

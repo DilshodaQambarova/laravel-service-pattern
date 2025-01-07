@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Interfaces\Services\UserServiceInterface;
 use App\Interfaces\Repositories\UserRepositoryInterface;
 
-class UserService implements UserServiceInterface
+class UserService extends BaseService implements UserServiceInterface
 {
 
     use ResponseTrait;
