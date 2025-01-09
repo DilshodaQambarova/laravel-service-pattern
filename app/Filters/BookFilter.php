@@ -4,11 +4,10 @@ namespace App\Filters;
 
 class BookFilter
 {
-    /**
-     * Create a new class instance.
-     */
-    public function __construct()
-    {
-        //
+    public function apply($query, $filters){
+        if($filters && $filters['title']){
+            $query->where('title', $filters['title']);
+        }
+        return $query;
     }
 }
