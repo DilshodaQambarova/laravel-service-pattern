@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Events\AttachmentEvent;
+use App\Filters\BookFilter;
 use App\Interfaces\Repositories\BookRepositoryInterface;
 use App\Models\Book;
 use App\Services\AttachmentService;
@@ -60,6 +61,12 @@ class BookRepository implements BookRepositoryInterface
         $this->attachmentService->destroy($book->images);
         $book->delete();
         return $book;
+    }
+    public function filterBook($filters){
+        $filter = new BookFilter();
+        $query = Book::query();
+        $filteredBooks = $filter->apply($query, $filters);
+        return $filteredBooks;
     }
 
 }
