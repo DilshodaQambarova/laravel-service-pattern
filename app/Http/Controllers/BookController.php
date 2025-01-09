@@ -50,6 +50,7 @@ class BookController extends Controller
     }
     // TODo add search and filter for book
     public function filterBook(Request $request){
-        
+        $books = $this->bookService->filterBook($request->all());
+        return $this->success(BookResource::collection($books));
     }
 }
