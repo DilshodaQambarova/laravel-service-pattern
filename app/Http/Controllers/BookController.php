@@ -49,5 +49,7 @@ class BookController extends Controller
         return $this->success([], __('successes.book.deleted'), 204);
     }
     // TODo add search and filter for book
-
+    public function filterBook(Request $request){
+        
+    }
 }
