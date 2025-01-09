@@ -14,6 +14,6 @@ return [
         'deleted' => 'Book deleted successfully!',
     ],
     'email' => [
-        'verified' => 'Email muvaffaqiyatli tasdiqlandi!',
+        'verified' => 'Email verified successfully!',
     ],
 ];

@@ -14,6 +14,6 @@ return
         'deleted' => 'Книга успешно удалено',
     ],
     'email' => [
-        'verified' => 'Email verified successfully!',
+        'verified' => 'Электронная почта успешно подтверждена!',
     ],
 ];
