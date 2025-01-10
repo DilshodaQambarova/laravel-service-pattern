@@ -10,5 +10,6 @@ interface BookServiceInterface
     public function deleteBook($id);
     public function createBook($bookDTO);
     public function filterBook($filters);
+    public function searchBook($q);
 
 }
