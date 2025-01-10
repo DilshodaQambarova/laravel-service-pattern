@@ -8,6 +8,7 @@ use App\Traits\ResponseTrait;
 use App\Http\Resources\BookResource;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreBookRequest;
+use App\Http\Requests\SearchBookRequest;
 use App\Http\Requests\UpdateBookRequest;
 use App\Interfaces\Services\BookServiceInterface;
 
@@ -50,7 +51,11 @@ class BookController extends Controller
     }
     // TODo add search and filter for book
     public function filterBook(Request $request){
-        $books = $this->bookService->filterBook($request->all());
-        return $this->success(BookResource::collection($books));
+        $filteredBooks = $this->bookService->filterBook($request->all());
+        return $this->success(BookResource::collection($filteredBooks));
+    }
+    public function search(SearchBookRequest $request){
+        $searchedBooks = $this->bookService->searchBook($request->q);
+        return $this->success(BookResource::collection($searchedBooks));
     }
 }
