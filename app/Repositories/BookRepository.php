@@ -62,20 +62,6 @@ class BookRepository implements BookRepositoryInterface
         $book->delete();
         return $book;
     }
-    public function filterBook($filters){
-        $filter = new BookFilter();
-        $query = Book::query();
-        $filteredBooks = $filter->apply($query, $filters);
-        return $filteredBooks;
-    }
-    public function searchBook($q){
-        // $filteredBooks = $this->filterBook($q);
-        // $searchedBooks = $filteredBooks->where('title', 'like', "%$q%");
-        // return $searchedBooks;
-        $searchedBooks = Book::where('title', 'like', "%$q%");
-        $filter = new BookFilter();
-        $filteredBooks = $filter->apply($searchedBooks, $q);
-        return $filteredBooks;
-    }
+    
 
 }

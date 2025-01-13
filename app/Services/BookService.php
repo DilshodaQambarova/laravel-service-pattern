@@ -42,11 +42,5 @@ class BookService extends BaseService implements BookServiceInterface
     public function deleteBook($id){
         return $this->bookRepository->deleteBook($id);
     }
-    public function filterBook($filters){
-        return $this->bookRepository->filterBook($filters);
-    }
-    public function searchBook($q){
-        return $this->bookRepository->searchBook($q);
-    }
 
 }
