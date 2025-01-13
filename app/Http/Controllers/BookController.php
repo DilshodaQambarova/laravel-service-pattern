@@ -50,12 +50,4 @@ class BookController extends Controller
         return $this->success([], __('successes.book.deleted'), 204);
     }
     // TODo add search and filter for book
-    public function filterBook(Request $request){
-        $filteredBooks = $this->bookService->filterBook($request->all());
-        return $this->success(BookResource::collection($filteredBooks));
-    }
-    public function search(SearchBookRequest $request){
-        $searchedBooks = $this->bookService->searchBook($request->q);
-        return $this->success(BookResource::collection($searchedBooks));
-    }
 }
