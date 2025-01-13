@@ -9,8 +9,6 @@ interface BookRepositoryInterface
     public function updateBook($data, $id);
     public function deleteBook($id);
     public function createBook($data);
-    public function filterBook($filters);
-    public function searchBook($q);
 
 
 }
