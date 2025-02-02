@@ -32,10 +32,11 @@ class BookService extends BaseService implements BookServiceInterface
         if(Auth::id() !== $bookDTO->user_id){
             return $this->error(__('errors.book.forbidden'), 403);
         }
+        $translations = $this->prepareTranslations(['translations' => $bookDTO->translations], ['title','content']);
         $data = [
             'user_id' => $bookDTO->user_id,
             'images' => $bookDTO->images,
-            'translations' => $bookDTO->translations
+            'translations' => $translations
         ];
         return $this->bookRepository->updateBook($data, $id);
     }
